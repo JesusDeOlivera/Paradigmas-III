@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cátedra Paradigmas 3 - Vista Tarjetas</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <div class="nav-brand">Cátedra Paradigmas 3</div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="listado_tabla.html">Vista Tabla</a>
+            <a href="listado_box.html" class="active">Vista Tarjetas</a>
+            <a href="comprar.html">Comprar</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="contenedor">
+            <h1 class="titulo-principal">Catálogo General (Vista de Tarjetas)</h1>
+            <hr>
+            <p class="texto-descriptivo">
+                Esta sección demuestra cómo reordenar y organizar las mismas entidades en forma de cajas o tarjetas utilizando un sistema bidimensional de <strong>CSS Grid:</strong>
+            </p>
+
+            <div class="grilla-tarjetas">
+                <!-- Tarjeta 1 -->
+                <div class="tarjeta">
+                    <div class="tarjeta-img">
+                        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=400&q=80" alt="GPU">
+                    </div>
+                    <div class="tarjeta-cuerpo">
+                        <h3 class="tarjeta-titulo">Placa de Video RX 7800 XT</h3>
+                        <p class="tarjeta-precio">$550.00</p>
+                        <p class="tarjeta-desc">Excelente rendimiento gráfico para gaming a resolución 1440p con trazado de rayos.</p>
+                        <button class="btn-azul" onclick="window.location.href='detalle.html'">Ver Ficha Técnica</button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="tarjeta">
+                    <div class="tarjeta-img">
+                        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=400&q=80" alt="CPU">
+                    </div>
+                    <div class="tarjeta-cuerpo">
+                        <h3 class="tarjeta-titulo">AMD Ryzen 7 7800X3D</h3>
+                        <p class="tarjeta-precio">$420.00</p>
+                        <p class="tarjeta-desc">El mejor procesador de escritorio para videojuegos de la actualidad, gracias al 3D V-Cache.</p>
+                        <button class="btn-azul" onclick="window.location.href='detalle.html'">Ver Ficha Técnica</button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="tarjeta">
+                    <div class="tarjeta-img">
+                        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=400&q=80" alt="RAM">
+                    </div>
+                    <div class="tarjeta-cuerpo">
+                        <h3 class="tarjeta-titulo">Memoria RAM DDR5 32GB</h3>
+                        <p class="tarjeta-precio">$140.00</p>
+                        <p class="tarjeta-desc">Kit de memorias de alto rendimiento diseñado para la máxima velocidad y estabilidad en el sistema.</p>
+                        <button class="btn-azul" onclick="window.location.href='detalle.html'">Ver Ficha Técnica</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 - Universidad Tecnológica Nacional. Cátedra de Paradigmas y Lenguajes de Programación 3.
+    </footer>
+</body>
+</html>

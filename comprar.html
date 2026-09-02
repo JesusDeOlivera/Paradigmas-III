@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cátedra Paradigmas 3 - Comprar</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+        <div class="nav-brand">Cátedra Paradigmas 3</div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="listado_tabla.html">Vista Tabla</a>
+            <a href="listado_box.html">Vista Tarjetas</a>
+            <a href="comprar.html" class="active">Comprar</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="contenedor">
+            <h1 class="titulo-principal">Completar Formulario de Compra</h1>
+            <hr>
+            <p class="texto-descriptivo">
+                Por favor, complete los datos requeridos para procesar su orden. Este formulario interactúa de forma directa con el protocolo HTTP:
+            </p>
+
+            <form action="procesar_compra.php" method="POST">
+                <div class="form-group">
+                    <label>Nombre Completo del Cliente:</label>
+                    <input type="text" name="nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección de Entrega:</label>
+                    <input type="text" name="direccion" placeholder="Calle 123 - Ciudad" required>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Teléfono de Contacto:</label>
+                        <input type="text" name="telefono" placeholder="Ej. +54 351 123456" required>
+                    </div>
+                    <div>
+                        <label>Correo Electrónico:</label>
+                        <input type="email" name="correo" placeholder="juan.perez@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Seleccione un Medio de Pago:</label>
+                    <select name="pago" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                        <option value="transferencia">Transferencia Bancaria</option>
+                    </select>
+                </div>
+
+                <div class="caja-productos">
+                    <label style="margin-bottom: 15px;">Seleccione los Productos a Adquirir:</label>
+                    
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="productos[]" value="RX 7800 XT">
+                        Placa de Video Radeon RX 7800 XT - $550.00
+                    </label>
+                    
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="productos[]" value="Ryzen 7 7800X3D">
+                        Procesador AMD Ryzen 7 7800X3D - $420.00
+                    </label>
+                    
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="productos[]" value="RAM 32GB">
+                        Memoria RAM DDR5 32GB - $140.00
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-confirmar">Confirmar Pedido</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 - Universidad Tecnológica Nacional. Cátedra de Paradigmas y Lenguajes de Programación 3.
+    </footer>
+</body>
+</html>
