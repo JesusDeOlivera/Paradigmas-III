@@ -1,0 +1,91 @@
+/* =========================================================
+   AA15 — Estilos del cupón de descuento
+   ========================================================= */
+
+.cupon {
+  margin-top: 1.5rem;
+}
+
+.cupon-fila {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.cupon-fila input {
+  flex: 1;
+  text-transform: uppercase; /* solo visual; el valor real se convierte en JS */
+  letter-spacing: 0.05em;
+}
+
+.cupon-fila .btn {
+  flex-shrink: 0;
+  margin: 0;
+  width: auto;
+}
+
+/* Mensaje sin resultado todavía: no ocupa espacio */
+.mensaje-cupon:empty {
+  display: none;
+}
+
+.mensaje-cupon {
+  margin: 0.75rem 0 0;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border-left: 4px solid transparent;
+  font-weight: 600;
+}
+
+/* ===== Clases que aplica validarCupon() ===== */
+.mensaje-exito {
+  background-color: var(--color-exito-fondo, #E3EEE7);
+  border-left-color: #1E7A46;
+  color: #14532D;
+}
+
+.mensaje-error {
+  background-color: var(--color-error-fondo, #FBEDE8);
+  border-left-color: #B42318;
+  color: #8A1C12;
+}
+
+/* El campo también cambia de borde según el resultado */
+.cupon:has(.mensaje-exito) input {
+  border-color: #1E7A46;
+}
+
+.cupon:has(.mensaje-error) input {
+  border-color: #B42318;
+}
+
+/* ===== Resumen del importe ===== */
+.total-compra {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-borde, #DDD2BA);
+  border-radius: 8px;
+}
+
+.total-compra p {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.25rem 0;
+}
+
+.total-descuento {
+  color: #1E7A46;
+  font-weight: 600;
+}
+
+.total-final {
+  margin-top: 0.5rem !important;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-borde, #DDD2BA);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.total-compra p[hidden] {
+  display: none;
+}
