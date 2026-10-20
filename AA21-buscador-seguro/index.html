@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA 21 - Buscador Seguro con PDO</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="search-box">
+        <h2>Catálogo de Productos</h2>
+
+        <form id="form-buscar">
+            <div class="form-group">
+                <input
+                    type="text"
+                    id="input-buscar"
+                    placeholder="Buscar por nombre o categoría..."
+                    maxlength="100"
+                >
+                <button type="submit">Buscar</button>
+            </div>
+            <small class="ayuda">Dejá el campo vacío y buscá para ver todo el catálogo.</small>
+
+            <!-- Selector para comparar ambos endpoints durante el análisis -->
+            <fieldset class="modo">
+                <legend>Endpoint a usar</legend>
+                <label>
+                    <input type="radio" name="modo" value="seguro" checked>
+                    Seguro (PDO preparado)
+                </label>
+                <label>
+                    <input type="radio" name="modo" value="vulnerable">
+                    Vulnerable (concatenación)
+                </label>
+            </fieldset>
+        </form>
+
+        <p id="estado" class="estado" aria-live="polite"></p>
+    </div>
+
+    <!-- Contenedor dinámico cargado mediante app.js -->
+    <div id="resultados"></div>
+
+    <div class="search-box alta-box">
+        <h2>Agregar producto</h2>
+
+        <form id="form-alta" novalidate>
+            <div class="grid-alta">
+                <label>Nombre
+                    <input type="text" id="alta-nombre" maxlength="100" required>
+                </label>
+                <label>Categoría
+                    <input type="text" id="alta-categoria" maxlength="50" required>
+                </label>
+                <label>Precio
+                    <input type="number" id="alta-precio" min="0.01" step="0.01" required>
+                </label>
+                <label>Stock
+                    <input type="number" id="alta-stock" min="0" step="1" value="0" required>
+                </label>
+            </div>
+            <button type="submit">Guardar</button>
+        </form>
+
+        <p id="estado-alta" class="estado" aria-live="polite"></p>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
