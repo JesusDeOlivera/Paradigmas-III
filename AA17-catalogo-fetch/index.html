@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propiedades en venta — RN Inmobiliaria</title>
+  <meta name="description" content="Catálogo de propiedades de RN Inmobiliaria cargado de forma asíncrona desde un archivo JSON.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="encabezado-interno">
+      <a href="index.html" class="logo">RN <span>Inmobiliaria</span></a>
+      <p class="encabezado-lema">Tu futuro hogar en la tierra roja</p>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <section class="intro">
+      <h1>Propiedades en venta</h1>
+      <p>Casas y terrenos disponibles en Posadas, Misiones.</p>
+    </section>
+
+    <!-- Estado de la carga: lo actualiza app.js (cargando / cantidad / error) -->
+    <p class="estado" data-estado="cargando" role="status" aria-live="polite">Cargando propiedades…</p>
+
+    <!-- Contenedor vacío: las tarjetas se crean con JavaScript a partir de data/productos.json -->
+    <section class="grilla-productos" aria-label="Listado de propiedades" aria-busy="true"></section>
+  </main>
+
+  <footer class="pie">
+    <p>© 2026 RN Inmobiliaria · Posadas, Misiones, Argentina</p>
+  </footer>
+
+  <!-- Sin onclick ni onload en el HTML: toda la lógica vive en el archivo externo -->
+  <script src="js/app.js"></script>
+</body>
+</html>

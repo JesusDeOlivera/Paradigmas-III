@@ -1,0 +1,282 @@
+/* =========================================================
+   AA17 — Catálogo RN Inmobiliaria · Estilos
+   Paleta de la marca: tierra roja, selva y arena
+   ========================================================= */
+
+:root {
+  --tierra: #A63C1E;
+  --tierra-oscuro: #7C2C15;
+  --selva: #1B3A2E;
+  --arena: #EFE6D3;
+  --papel: #FBF8F1;
+  --tinta: #1C1A15;
+  --ocre: #C98A2C;
+  --musgo: #5F6E62;
+  --borde: #DDD2BA;
+  --sombra: 0 2px 6px rgba(28, 26, 21, 0.08);
+  --sombra-hover: 0 12px 28px rgba(28, 26, 21, 0.16);
+  --radio: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Public Sans', system-ui, sans-serif;
+  color: var(--tinta);
+  background-color: var(--arena);
+  line-height: 1.5;
+}
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+  background-color: var(--selva);
+  color: var(--arena);
+}
+
+.encabezado-interno {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.logo {
+  font-family: 'Zilla Slab', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--arena);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--ocre);
+}
+
+.encabezado-lema {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* ---------- Contenido ---------- */
+.contenedor {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3.5rem;
+}
+
+.intro h1 {
+  margin: 0 0 0.25rem;
+  font-family: 'Zilla Slab', Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--selva);
+}
+
+.intro p {
+  margin: 0;
+  color: var(--musgo);
+}
+
+/* ---------- Estado de la carga ---------- */
+.estado {
+  margin: 1.5rem 0;
+  font-weight: 600;
+  color: var(--musgo);
+}
+
+.estado[data-estado="cargando"]::before {
+  content: '';
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.5em;
+  vertical-align: -0.1em;
+  border: 2px solid var(--borde);
+  border-top-color: var(--tierra);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+.estado[data-estado="error"] {
+  padding: 0.85rem 1rem;
+  border-left: 4px solid var(--tierra);
+  border-radius: 6px;
+  background-color: #FBEDE8;
+  color: var(--tierra-oscuro);
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Grilla de tarjetas ---------- */
+.grilla-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.75rem;
+}
+
+/* ---------- Tarjeta ---------- */
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--papel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: aparecer 0.4s ease both;
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+}
+
+.tarjeta--destacada {
+  border-color: var(--ocre);
+  box-shadow: 0 0 0 2px var(--ocre), var(--sombra);
+}
+
+/* Las tarjetas aparecen una tras otra */
+.tarjeta:nth-child(2) { animation-delay: 0.08s; }
+.tarjeta:nth-child(3) { animation-delay: 0.16s; }
+.tarjeta:nth-child(4) { animation-delay: 0.24s; }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tarjeta-imagen {
+  position: relative;
+  margin: 0;
+  background-color: var(--borde);
+}
+
+.tarjeta-imagen img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3; /* misma altura de foto en todas las tarjetas */
+  object-fit: cover;
+}
+
+.tarjeta-tipo,
+.tarjeta-cinta {
+  position: absolute;
+  top: 0.75rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tarjeta-tipo {
+  left: 0.75rem;
+  background-color: var(--selva);
+  color: var(--arena);
+}
+
+.tarjeta-cinta {
+  right: 0.75rem;
+  background-color: var(--ocre);
+  color: var(--tinta);
+}
+
+.tarjeta-cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem 1.25rem 1.4rem;
+}
+
+.tarjeta-precio {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--tierra);
+}
+
+.tarjeta-titulo {
+  margin: 0.2rem 0 0;
+  font-family: 'Zilla Slab', Georgia, serif;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  color: var(--selva);
+}
+
+.tarjeta-ubicacion {
+  margin: 0.15rem 0 0.75rem;
+  font-size: 0.92rem;
+  color: var(--musgo);
+}
+
+.tarjeta-descripcion {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+}
+
+.tarjeta-datos,
+.tarjeta-etiquetas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tarjeta-datos {
+  gap: 0.25rem 1.25rem;
+  margin-top: auto; /* empuja los datos al final para alinear las tarjetas */
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--borde);
+  font-weight: 600;
+}
+
+.tarjeta-etiquetas {
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+
+.tarjeta-etiquetas li {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--musgo);
+}
+
+/* ---------- Pie ---------- */
+.pie {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  background-color: var(--selva);
+  color: var(--arena);
+}
+
+.pie p {
+  margin: 0;
+}
+
+/* ---------- Accesibilidad ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta,
+  .estado[data-estado="cargando"]::before {
+    animation: none;
+  }
+
+  .tarjeta {
+    transition: none;
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "empresa": "RN Inmobiliaria",
+  "ciudad": "Posadas, Misiones",
+  "moneda": "USD",
+  "productos": [
+    {
+      "id": "villa-sarita",
+      "titulo": "Casa 3 ambientes con pileta",
+      "tipo": "Casa",
+      "barrio": "Villa Sarita, Posadas",
+      "precio": 85000,
+      "superficie": 120,
+      "ambientes": 3,
+      "descripcion": "Casa con cocina integrada con isla, vestidor, garage con área de lavado, galería exterior y pileta en el patio.",
+      "caracteristicas": ["Pileta", "Garage", "Galería"],
+      "imagen": "img/villa-sarita.jpg",
+      "destacada": true
+    },
+    {
+      "id": "itaembe-guazu",
+      "titulo": "Terreno baldío",
+      "tipo": "Terreno",
+      "barrio": "Itaembé Guazú, Posadas",
+      "precio": 22000,
+      "superficie": 300,
+      "ambientes": null,
+      "descripcion": "Lote de 300 m² listo para construir, en una de las zonas de mayor crecimiento de la ciudad.",
+      "caracteristicas": ["Listo para construir", "Zona en crecimiento"],
+      "imagen": "img/itaembe-guazu.jpg",
+      "destacada": false
+    },
+    {
+      "id": "barrio-centro",
+      "titulo": "Casa 2 plantas",
+      "tipo": "Casa",
+      "barrio": "Centro, Posadas",
+      "precio": 75000,
+      "superficie": 90,
+      "ambientes": 3,
+      "descripcion": "Casa de dos plantas en pleno centro, con living amplio y patio, cerca de comercios y servicios.",
+      "caracteristicas": ["Dos plantas", "Patio", "Céntrica"],
+      "imagen": "img/barrio-centro.jpg",
+      "destacada": false
+    }
+  ]
+}
