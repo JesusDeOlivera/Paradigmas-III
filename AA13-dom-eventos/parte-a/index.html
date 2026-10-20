@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AA13 - Parte A: Sumatoria</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <main class="tarjeta">
+        <h1>Sumatoria de dos valores</h1>
+        <p class="ayuda">Ingresá dos números (pueden ser negativos o con decimales). El resultado se actualiza mientras escribís.</p>
+
+        <form id="form-suma" novalidate>
+            <div class="campos">
+                <div class="campo">
+                    <label for="valor1">Primer valor</label>
+                    <input type="number" id="valor1" step="any" placeholder="Ej: 15">
+                </div>
+
+                <span class="operador" aria-hidden="true">+</span>
+
+                <div class="campo">
+                    <label for="valor2">Segundo valor</label>
+                    <input type="number" id="valor2" step="any" placeholder="Ej: -20">
+                </div>
+            </div>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <p class="salida">
+            Resultado:
+            <span id="resultado" aria-live="polite">Completá ambos valores</span>
+        </p>
+    </main>
+
+    <script src="suma.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+/* AA13 · Parte A — estilos (misma línea visual del TP1) */
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #1e293b;
+}
+
+.tarjeta {
+    width: 100%;
+    max-width: 560px;
+    padding: 32px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+}
+
+h1 {
+    margin: 0 0 6px;
+    font-size: 1.5rem;
+    color: #0f172a;
+}
+
+.ayuda {
+    margin: 0 0 24px;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.campos {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.campo {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
+}
+
+.operador {
+    padding-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #64748b;
+}
+
+button {
+    width: 100%;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0ea5e9;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0284c7;
+}
+
+.salida {
+    margin: 24px 0 0;
+    font-weight: bold;
+}
+
+#resultado {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+/* Clases que aplica suma.js según el signo del resultado */
+.positivo {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.cero {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.negativo {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.pendiente {
+    background-color: #f1f5f9;
+    color: #64748b;
+    font-weight: normal;
+}
+
+@media (max-width: 480px) {
+    .campos {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .operador {
+        padding: 0;
+        text-align: center;
+    }
+}

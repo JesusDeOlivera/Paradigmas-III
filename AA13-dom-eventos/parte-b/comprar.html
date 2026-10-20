@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cátedra Paradigmas 3 - Comprar</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="subtotal.css">
+</head>
+<body>
+    <header>
+        <div class="nav-brand">Cátedra Paradigmas 3</div>
+        <nav>
+            <a href="../../index.html">Inicio</a>
+            <a href="../../listado_tabla.html">Vista Tabla</a>
+            <a href="../../listado_box.html">Vista Tarjetas</a>
+            <a href="comprar.html" class="active">Comprar</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="contenedor">
+            <h1 class="titulo-principal">Completar Formulario de Compra</h1>
+            <hr>
+            <p class="texto-descriptivo">
+                Por favor, complete los datos requeridos para procesar su orden. Este formulario interactúa de forma directa con el protocolo HTTP:
+            </p>
+
+            <form action="procesar_compra.php" method="POST">
+                <div class="form-group">
+                    <label>Nombre Completo del Cliente:</label>
+                    <input type="text" name="nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección de Entrega:</label>
+                    <input type="text" name="direccion" placeholder="Calle 123 - Ciudad" required>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Teléfono de Contacto:</label>
+                        <input type="text" name="telefono" placeholder="Ej. +54 351 123456" required>
+                    </div>
+                    <div>
+                        <label>Correo Electrónico:</label>
+                        <input type="email" name="correo" placeholder="juan.perez@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Seleccione un Medio de Pago:</label>
+                    <select name="pago" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                        <option value="transferencia">Transferencia Bancaria</option>
+                    </select>
+                </div>
+
+                <div class="caja-productos">
+                    <label style="margin-bottom: 15px;">Seleccione los Productos a Adquirir:</label>
+
+                    <div class="producto-fila" data-precio="550">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="productos[]" value="RX 7800 XT">
+                            Placa de Video Radeon RX 7800 XT - $550.00
+                        </label>
+                        <div class="producto-cantidad">
+                            <label for="cant-rx7800xt">Cantidad</label>
+                            <input type="number" id="cant-rx7800xt" name="cantidad[RX 7800 XT]" class="input-cantidad" min="0" max="10" step="1" value="0">
+                        </div>
+                        <p class="producto-subtotal">Subtotal: <span class="subtotal-linea">$0.00</span></p>
+                    </div>
+
+                    <div class="producto-fila" data-precio="420">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="productos[]" value="Ryzen 7 7800X3D">
+                            Procesador AMD Ryzen 7 7800X3D - $420.00
+                        </label>
+                        <div class="producto-cantidad">
+                            <label for="cant-ryzen7">Cantidad</label>
+                            <input type="number" id="cant-ryzen7" name="cantidad[Ryzen 7 7800X3D]" class="input-cantidad" min="0" max="10" step="1" value="0">
+                        </div>
+                        <p class="producto-subtotal">Subtotal: <span class="subtotal-linea">$0.00</span></p>
+                    </div>
+
+                    <div class="producto-fila" data-precio="140">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="productos[]" value="RAM 32GB">
+                            Memoria RAM DDR5 32GB - $140.00
+                        </label>
+                        <div class="producto-cantidad">
+                            <label for="cant-ram32">Cantidad</label>
+                            <input type="number" id="cant-ram32" name="cantidad[RAM 32GB]" class="input-cantidad" min="0" max="10" step="1" value="0">
+                        </div>
+                        <p class="producto-subtotal">Subtotal: <span class="subtotal-linea">$0.00</span></p>
+                    </div>
+
+                    <!-- Total a abonar: lo actualiza subtotal.js en tiempo real -->
+                    <div class="total-compra">
+                        <span>Total a abonar:</span>
+                        <span id="total-compra" aria-live="polite">$0.00</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-confirmar">Confirmar Pedido</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 - Universidad Tecnológica Nacional. Cátedra de Paradigmas y Lenguajes de Programación 3.
+    </footer>
+    <script src="subtotal.js"></script>
+</body>
+</html>
