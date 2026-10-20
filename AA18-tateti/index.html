@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tateti — AA18</title>
+  <meta name="description" content="Juego de Tateti con 3 fichas por jugador: colocación y movimiento, en HTML, CSS y JavaScript Vanilla.">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <main class="juego">
+    <header class="juego-encabezado">
+      <h1>Ta<span class="x">te</span><span class="o">ti</span></h1>
+      <p class="subtitulo">3 fichas por jugador · colocá y después mové</p>
+    </header>
+
+    <!-- Marcador -->
+    <section class="marcador" aria-label="Marcador">
+      <div class="marcador-item marcador-x" data-jugador="X">
+        <span class="marcador-ficha">X</span>
+        <span class="marcador-nombre" data-nombre="X">Jugador X</span>
+        <strong class="marcador-puntos" data-puntos="X">0</strong>
+      </div>
+      <div class="marcador-item marcador-empates">
+        <span class="marcador-ficha">=</span>
+        <span class="marcador-nombre">Empates</span>
+        <strong class="marcador-puntos" data-puntos="empates">0</strong>
+      </div>
+      <div class="marcador-item marcador-o" data-jugador="O">
+        <span class="marcador-ficha">O</span>
+        <span class="marcador-nombre" data-nombre="O">Jugador O</span>
+        <strong class="marcador-puntos" data-puntos="O">0</strong>
+      </div>
+    </section>
+
+    <!-- Estado del turno -->
+    <p class="estado" id="estado" role="status" aria-live="polite"></p>
+
+    <!-- Fichas que le quedan por colocar a cada jugador -->
+    <div class="reservas" aria-hidden="true">
+      <div class="reserva reserva-x" data-reserva="X"></div>
+      <span class="fase" id="fase"></span>
+      <div class="reserva reserva-o" data-reserva="O"></div>
+    </div>
+
+    <!-- Tablero: líneas del tateti dibujadas en SVG + 9 puntos (botones) -->
+    <div class="tablero-marco">
+      <svg class="tablero-lineas" viewBox="0 0 300 300" aria-hidden="true">
+        <rect x="50" y="50" width="200" height="200" rx="4"/>
+        <line x1="150" y1="50"  x2="150" y2="250"/>
+        <line x1="50"  y1="150" x2="250" y2="150"/>
+        <line x1="50"  y1="50"  x2="250" y2="250"/>
+        <line x1="250" y1="50"  x2="50"  y2="250"/>
+      </svg>
+      <div class="tablero" id="tablero" role="grid" aria-label="Tablero de tateti"></div>
+    </div>
+
+    <!-- Controles -->
+    <section class="controles">
+      <div class="control">
+        <label for="modo">Modo de juego</label>
+        <select id="modo">
+          <option value="2j">2 jugadores</option>
+          <option value="cpu">Contra la computadora</option>
+        </select>
+      </div>
+      <div class="botones">
+        <button type="button" class="btn btn-principal" id="btn-nueva">Nueva partida</button>
+        <button type="button" class="btn btn-secundario" id="btn-reiniciar">Reiniciar marcador</button>
+      </div>
+    </section>
+
+    <!-- Reglamento -->
+    <details class="reglas">
+      <summary>Reglamento</summary>
+      <ol>
+        <li>Juegan dos jugadores: <strong>X</strong> y <strong>O</strong>. Cada uno tiene <strong>3 fichas</strong>.</li>
+        <li><strong>Colocación:</strong> por turnos, cada jugador coloca una ficha en un punto libre del tablero.</li>
+        <li><strong>Movimiento:</strong> cuando ambos colocaron sus 3 fichas, en cada turno se mueve una ficha propia al punto libre <strong>más cercano</strong>, siguiendo las líneas del tablero.</li>
+        <li><strong>Gana</strong> quien forma una línea de 3 fichas propias: horizontal, vertical o diagonal.</li>
+        <li><strong>Empate:</strong> si el jugador en turno no tiene ningún movimiento posible, o si la misma posición se repite 3 veces.</li>
+        <li>El jugador que empieza se alterna en cada partida.</li>
+      </ol>
+    </details>
+  </main>
+
+  <script src="js/tateti.js"></script>
+</body>
+</html>
