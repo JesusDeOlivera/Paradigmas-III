@@ -1,4 +1,4 @@
-# RN Inmobiliaria — Autenticación segura con PHP, BCRYPT y sesiones
+# AA23 — RN Inmobiliaria: Autenticación segura con PHP, BCRYPT y sesiones
 
 Evolución del proyecto del equipo **RN Inmobiliaria** (Calamari Santino · De Olivera Jesús), basado en el repositorio [RNinmobiliriaUPGRADE](https://github.com/Barriletecosmicok/RNinmobiliriaUPGRADE).
 
@@ -19,7 +19,7 @@ Evolución del proyecto del equipo **RN Inmobiliaria** (Calamari Santino · De O
 ## Estructura
 
 ```
-RN-Inmobiliaria-login-php/
+AA23-rn-inmobiliaria-login/
 ├── sql/rn_inmobiliaria.sql      ← Paso 1: base, tablas usuarios y favoritos, cuentas de prueba
 ├── config/
 │   ├── conexion.php             ← PDO (EMULATE_PREPARES = false)
@@ -41,9 +41,9 @@ RN-Inmobiliaria-login-php/
 
 1. Encender **Apache** y **MySQL** en el panel de XAMPP.
 2. **phpMyAdmin → pestaña SQL →** pegar y ejecutar `sql/rn_inmobiliaria.sql`. Se crea la base `rn_inmobiliaria`.
-3. Copiar la carpeta `RN-Inmobiliaria-login-php` dentro de `C:\xampp\htdocs\`.
+3. Copiar la carpeta `AA23-rn-inmobiliaria-login` dentro de `C:\xampp\htdocs\`.
 4. Si tu MySQL tiene contraseña, ajustar `$pass` en `config/conexion.php`. Por defecto XAMPP no usa contraseña.
-5. Abrir `http://localhost/RN-Inmobiliaria-login-php/`.
+5. Abrir `http://localhost/AA23-rn-inmobiliaria-login/`.
 
 > Tiene que abrirse desde `http://localhost/...`. Con Live Server o abriendo el archivo directo, PHP no se ejecuta.
 
