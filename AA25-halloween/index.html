@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noche de Disfraces — Votación de Halloween</title>
+  <meta name="description" content="Votá tu disfraz de Halloween favorito y subí el tuyo.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <div class="cabecera-interior">
+      <a href="index.html" class="logo"><span aria-hidden="true">🎃</span> Noche de Disfraces</a>
+      <nav class="menu" aria-label="Menú principal">
+        <a href="index.html" class="menu-enlace activo">Disfraces</a>
+        <div class="menu-usuario" data-menu-usuario></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Portada -->
+    <section class="portada">
+      <div class="luna" aria-hidden="true"></div>
+      <div class="murcielagos" aria-hidden="true"><span>🦇</span><span>🦇</span><span>🦇</span></div>
+      <h1>Votá el disfraz <span class="resaltado">más terrorífico</span></h1>
+      <p class="portada-texto">Cada usuario puede votar una vez por cada disfraz. ¿Tenés un disfraz mejor? Subilo y que decida la gente.</p>
+
+      <!-- Visitante -->
+      <div class="portada-acciones" data-vista="visitante">
+        <a href="registro.html" class="boton boton-principal">Crear cuenta y votar</a>
+        <a href="login.html" class="boton boton-secundario">Ya tengo cuenta</a>
+      </div>
+      <!-- Usuario logueado -->
+      <div class="portada-acciones" data-vista="usuario" hidden>
+        <a href="#subir" class="boton boton-principal">Subir mi disfraz</a>
+      </div>
+    </section>
+
+    <!-- Listado de disfraces (se carga desde la API REST) -->
+    <section class="seccion" aria-labelledby="titulo-listado">
+      <div class="seccion-cabecera">
+        <h2 id="titulo-listado">Ranking de disfraces</h2>
+        <p class="estado-carga" id="estado-carga" role="status" aria-live="polite">Invocando disfraces…</p>
+      </div>
+      <div class="grilla-disfraces" id="grilla-disfraces" aria-busy="true"></div>
+    </section>
+
+    <!-- Subir disfraz (solo usuarios registrados) -->
+    <section class="seccion seccion-subir" id="subir" data-vista="usuario" hidden aria-labelledby="titulo-subir">
+      <div class="tarjeta-formulario">
+        <h2 id="titulo-subir">Subí tu disfraz</h2>
+        <p class="ayuda">La foto se achica automáticamente antes de subirla.</p>
+        <div class="alerta" id="alerta-subir" role="status" aria-live="polite" hidden></div>
+
+        <form id="form-subir" class="formulario" novalidate>
+          <div class="campo">
+            <label for="subir-nombre">Nombre del disfraz</label>
+            <input type="text" id="subir-nombre" name="nombre" maxlength="50" required placeholder="Ej: Hombre lobo de barrio">
+          </div>
+          <div class="campo">
+            <label for="subir-descripcion">Descripción</label>
+            <textarea id="subir-descripcion" name="descripcion" maxlength="1000" rows="3" required placeholder="Contanos cómo es tu disfraz"></textarea>
+          </div>
+          <div class="campo campo-foto">
+            <label for="subir-foto">Foto</label>
+            <input type="file" id="subir-foto" name="foto" accept="image/jpeg,image/png,image/gif,image/webp" required>
+            <img class="vista-previa" id="subir-vista" alt="Vista previa de la foto elegida" hidden>
+          </div>
+          <button type="submit" class="boton boton-principal">Publicar disfraz</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>🕸️ AA25 · Paradigmas y Lenguajes de Programación III · Halloween 2026</p>
+  </footer>
+
+  <script src="js/comun.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>

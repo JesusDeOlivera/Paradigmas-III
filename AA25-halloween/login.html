@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresar — Noche de Disfraces</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="pagina-acceso">
+
+  <header class="cabecera">
+    <div class="cabecera-interior">
+      <a href="index.html" class="logo"><span aria-hidden="true">🎃</span> Noche de Disfraces</a>
+      <nav class="menu" aria-label="Menú principal">
+        <a href="index.html" class="menu-enlace">Disfraces</a>
+        <div class="menu-usuario" data-menu-usuario></div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="acceso">
+    <div class="tarjeta-formulario tarjeta-acceso">
+      <p class="acceso-icono" aria-hidden="true">🦇</p>
+      <h1>Ingresar</h1>
+      <p class="ayuda">Entrá con tu usuario para votar tus disfraces favoritos.</p>
+
+      <div class="alerta" id="alerta" role="status" aria-live="polite" hidden></div>
+
+      <form id="form-login" class="formulario" novalidate>
+        <div class="campo">
+          <label for="nombre">Usuario</label>
+          <input type="text" id="nombre" name="nombre" autocomplete="username" required>
+        </div>
+        <div class="campo">
+          <label for="clave">Contraseña</label>
+          <input type="password" id="clave" name="clave" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="boton boton-principal boton-ancho">Ingresar</button>
+      </form>
+
+      <p class="acceso-pie">¿No tenés cuenta? <a href="registro.html">Registrate</a></p>
+    </div>
+  </main>
+
+  <script src="js/comun.js"></script>
+  <script src="js/acceso.js"></script>
+</body>
+</html>

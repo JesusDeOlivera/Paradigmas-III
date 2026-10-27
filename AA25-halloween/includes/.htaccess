@@ -1,0 +1,2 @@
+# Los archivos de esta carpeta solo se incluyen desde PHP: no se acceden desde el navegador
+Require all denied
