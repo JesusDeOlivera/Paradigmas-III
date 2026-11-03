@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Taller de Auditoría de Accesibilidad - Cátedra PLP III</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        /* ❌ ERROR MANUAL #6: Destruye el indicador de foco por teclado */
+        *:focus {
+            outline: none !important;
+        }
+
+        /* 🔴 ERROR LIGHTHOUSE #1: Bajo contraste de color (Gris claro sobre blanco) */
+        .texto-bajo-contraste {
+            color: #94a3b8; 
+            font-size: 0.9rem;
+        }
+
+        /* 🟠 ERROR MANUAL #7: Apariencia de botón sobre un <div> inaccesible */
+        .btn-falso {
+            background-color: #2563eb;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .tarjeta {
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Portal de Compras - Ejercicio de Auditoría</h1>
+    </header>
+
+    <main>
+        <!-- 🔴 ERROR LIGHTHOUSE #5: Salto de jerarquía (de <h1> pasa a <h4>) -->
+        <h4>Catálogo de Productos Destacados</h4>
+
+        <section class="tarjeta">
+            <!-- 🔴 ERROR LIGHTHOUSE #3: Imagen sin atributo alt -->
+            <img src="https://www.ucp.edu.ar/wp-content/themes/ucp23/lib/ucp/img/universidad-cuenca-plata.svg" width="100">
+            
+            <h3>Auriculares Inalámbricos</h3>
+            
+            <!-- 🔴 ERROR LIGHTHOUSE #1: Texto instructivo inaccesible por contraste -->
+            <p class="texto-bajo-contraste">Stock disponible: 5 unidades en depósito central.</p>
+
+            <!-- 🟠 ERROR MANUAL #7: Div interactivo que no recibe foco con Tab ni Enter -->
+            <div class="btn-falso" onclick="alert('Producto agregado')">
+                Agregar al Carrito
+            </div>
+            
+            <!-- 🔴 ERROR LIGHTHOUSE #4: Botón con ícono sin texto ni aria-label -->
+            <button type="button" style="margin-left: 10px; padding: 8px;">
+                <span style="font-size: 1.2rem;">🗑️</span>
+            </button>
+        </section>
+
+        <section class="tarjeta">
+            <h3>Suscripción al Novedades</h3>
+            
+            <form id="form-suscripcion">
+                <div style="margin-bottom: 10px;">
+                    <!-- 🔴 ERROR LIGHTHOUSE #2: Input de correo sin <label> asociado -->
+                    <input type="email" id="email-user" placeholder="Ingrese su correo electrónico...">
+                </div>
+
+                <!-- 🟠 ERROR MANUAL #9: Botón de envío que no se deshabilita durante fetch() -->
+                <button type="submit" id="btn-enviar">Suscribirme</button>
+            </form>
+
+            <!-- 🟠 ERROR MANUAL #8: Modificación del DOM sin aria-live -->
+            <div id="resultado-servidor" style="margin-top: 15px; font-weight: bold;"></div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('form-suscripcion').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const respuestaUI = document.getElementById('resultado-servidor');
+            
+            // ❌ Faltan: btn.disabled = true y aria-live="polite"
+            respuestaUI.textContent = "Conectando con el servidor...";
+
+            // Simulación de petición asíncrona fetch()
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Actualización silenciosa del DOM
+            respuestaUI.textContent = "¡Suscripción confirmada con éxito en la base de datos!";
+        });
+    </script>
+</body>
+</html>

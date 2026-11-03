@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Auditoría de Accesibilidad - Cátedra PLP III</title>
+    <!--
+        ETAPA 3 · Versión final accesible
+        Regla 1: HTML5 semántico (button, label for, header, main, section, footer)
+        Regla 2: foco visual preservado con :focus-visible (sin outline: none)
+        Regla 3: comunicación asíncrona accesible (aria-live + aria-atomic + botón deshabilitado)
+        Regla 4: respuestas del servidor inyectadas con textContent (nunca innerHTML)
+    -->
+    <style>
+        :root {
+            --texto: #1e293b;
+            --texto-secundario: #475569;   /* 7,6:1 sobre blanco (antes #94a3b8 = 2,6:1) */
+            --primario: #1d4ed8;           /* 6,7:1 con texto blanco */
+            --primario-hover: #1e40af;
+            --borde: #cbd5e1;
+            --foco: #c2410c;               /* anillo de foco naranja oscuro: 4,6:1 sobre blanco */
+            --exito: #166534;
+            --error: #b91c1c;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            color: var(--texto);
+            line-height: 1.5;
+        }
+
+        /* ✅ REGLA 2: se eliminó "*:focus { outline: none !important; }".
+           El anillo de foco aparece al navegar con teclado (:focus-visible)
+           y no molesta al hacer clic con el mouse. */
+        :focus-visible {
+            outline: 3px solid var(--foco);
+            outline-offset: 3px;
+        }
+
+        /* Enlace para saltar directo al contenido (primer Tab de la página) */
+        .saltar-contenido {
+            position: absolute;
+            left: 20px;
+            top: -100px;
+            padding: 10px 16px;
+            background-color: var(--primario);
+            color: #ffffff;
+            font-weight: bold;
+            border-radius: 6px;
+            z-index: 10;
+        }
+
+        .saltar-contenido:focus {
+            top: 12px;
+        }
+
+        /* ✅ Contraste suficiente para el texto secundario */
+        .texto-secundario {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+        }
+
+        .tarjeta {
+            border: 1px solid var(--borde);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .producto-acciones {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* ✅ REGLA 1: estilos para un <button> real (antes era un <div class="btn-falso">) */
+        .btn {
+            min-height: 44px;              /* objetivo táctil mínimo recomendado */
+            padding: 10px 16px;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primario {
+            background-color: var(--primario);
+            color: #ffffff;
+        }
+
+        .btn-primario:hover {
+            background-color: var(--primario-hover);
+        }
+
+        .btn-icono {
+            min-width: 44px;
+            background-color: #ffffff;
+            border-color: var(--borde);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .btn-icono:hover {
+            border-color: var(--error);
+        }
+
+        /* Botón deshabilitado durante la petición fetch() */
+        .btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        .campo {
+            margin-bottom: 12px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .campo input {
+            width: 100%;
+            max-width: 360px;
+            min-height: 44px;
+            padding: 10px;
+            border: 1px solid #64748b;    /* el borde del campo también contrasta (3:1 o más) */
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        .campo input[aria-invalid="true"] {
+            border: 2px solid var(--error);
+        }
+
+        .ayuda {
+            margin: 6px 0 0;
+            color: var(--texto-secundario);
+            font-size: 0.9rem;
+        }
+
+        /* Regiones de notificación (aria-live) */
+        .mensaje {
+            min-height: 1.5em;
+            margin: 15px 0 0;
+            font-weight: bold;
+        }
+
+        .mensaje.exito { color: var(--exito); }
+        .mensaje.error { color: var(--error); }
+
+        footer {
+            color: var(--texto-secundario);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Primer elemento al presionar Tab: permite saltar directo al contenido principal -->
+    <a href="#contenido" class="saltar-contenido">Saltar al contenido principal</a>
+
+    <header>
+        <h1>Portal de Compras - Ejercicio de Auditoría</h1>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+
+        <!-- ✅ Jerarquía de títulos sin saltos: h1 → h2 → h3 -->
+        <section aria-labelledby="titulo-catalogo">
+            <h2 id="titulo-catalogo">Catálogo de Productos Destacados</h2>
+
+            <article class="tarjeta" aria-labelledby="titulo-producto">
+                <!-- ✅ Imagen con texto alternativo -->
+                <img src="https://www.ucp.edu.ar/wp-content/themes/ucp23/lib/ucp/img/universidad-cuenca-plata.svg"
+                     width="100" alt="Logo de la Universidad de la Cuenca del Plata">
+
+                <h3 id="titulo-producto">Auriculares Inalámbricos</h3>
+
+                <!-- ✅ Texto con contraste suficiente -->
+                <p class="texto-secundario">Stock disponible: 5 unidades en depósito central.</p>
+
+                <div class="producto-acciones">
+                    <!-- ✅ REGLA 1: <button> nativo → recibe foco con Tab y se activa con Enter o Espacio -->
+                    <button type="button" class="btn btn-primario" id="btn-agregar">
+                        Agregar al Carrito
+                    </button>
+
+                    <!-- ✅ Botón de ícono con nombre accesible; el emoji se oculta a los lectores de pantalla -->
+                    <button type="button" class="btn btn-icono" id="btn-quitar"
+                            aria-label="Quitar Auriculares Inalámbricos del carrito">
+                        <span aria-hidden="true">🗑️</span>
+                    </button>
+                </div>
+
+                <!-- ✅ REGLA 3: región que anuncia los cambios del carrito -->
+                <p id="estado-carrito" class="mensaje" role="status" aria-live="polite" aria-atomic="true"></p>
+            </article>
+        </section>
+
+        <section class="tarjeta" aria-labelledby="titulo-suscripcion">
+            <h2 id="titulo-suscripcion">Suscripción a Novedades</h2>
+
+            <form id="form-suscripcion" novalidate>
+                <div class="campo">
+                    <!-- ✅ REGLA 1: <label for> asociado al input -->
+                    <label for="email-user">Correo electrónico</label>
+                    <input type="email" id="email-user" name="email" autocomplete="email" required
+                           placeholder="nombre@ejemplo.com" aria-describedby="ayuda-email">
+                    <p id="ayuda-email" class="ayuda">Te enviaremos las novedades del catálogo una vez por semana.</p>
+                </div>
+
+                <button type="submit" class="btn btn-primario" id="btn-enviar">Suscribirme</button>
+            </form>
+
+            <!-- ✅ REGLA 3: aria-live="polite" + aria-atomic="true" → el lector de pantalla
+                 lee el mensaje completo cada vez que cambia -->
+            <div id="resultado-servidor" class="mensaje" role="status" aria-live="polite" aria-atomic="true"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Cátedra Paradigmas y Lenguajes de Programación III</p>
+    </footer>
+
+    <script>
+        /* =========================================================
+           Carrito: el <button> nativo dispara "click" con el mouse,
+           con Enter y con la barra espaciadora, sin código extra.
+           ========================================================= */
+        const btnAgregar    = document.querySelector('#btn-agregar');
+        const btnQuitar     = document.querySelector('#btn-quitar');
+        const estadoCarrito = document.querySelector('#estado-carrito');
+        let unidadesEnCarrito = 0;
+        const STOCK = 5;
+
+        btnAgregar.addEventListener('click', () => {
+            if (unidadesEnCarrito >= STOCK) {
+                mostrar(estadoCarrito, 'No hay más stock disponible de este producto.', 'error');
+                return;
+            }
+            unidadesEnCarrito++;
+            mostrar(estadoCarrito, `Producto agregado. Tenés ${unidadesEnCarrito} en el carrito.`, 'exito');
+        });
+
+        btnQuitar.addEventListener('click', () => {
+            if (unidadesEnCarrito === 0) {
+                mostrar(estadoCarrito, 'El carrito no tiene este producto.', 'error');
+                return;
+            }
+            unidadesEnCarrito--;
+            mostrar(estadoCarrito, `Producto quitado. Tenés ${unidadesEnCarrito} en el carrito.`, 'exito');
+        });
+
+        /* =========================================================
+           Suscripción con fetch()
+           ========================================================= */
+        const form        = document.querySelector('#form-suscripcion');
+        const inputEmail  = document.querySelector('#email-user');
+        const btnEnviar   = document.querySelector('#btn-enviar');
+        const respuestaUI = document.querySelector('#resultado-servidor');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validación accesible: el error se marca en el campo y se anuncia en la región aria-live
+            if (!inputEmail.checkValidity()) {
+                inputEmail.setAttribute('aria-invalid', 'true');
+                mostrar(respuestaUI, 'Ingresá un correo electrónico válido, por ejemplo nombre@ejemplo.com.', 'error');
+                inputEmail.focus();
+                return;
+            }
+            inputEmail.removeAttribute('aria-invalid');
+
+            // ✅ REGLA 3: se deshabilita el botón mientras dura la petición (evita envíos duplicados)
+            btnEnviar.disabled = true;
+            btnEnviar.textContent = 'Enviando…';
+            form.setAttribute('aria-busy', 'true');
+            mostrar(respuestaUI, 'Conectando con el servidor…');
+
+            try {
+                const respuesta = await fetch(URL_SUSCRIPCION, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: inputEmail.value.trim() })
+                });
+                const datos = await respuesta.json();
+
+                // ✅ REGLA 4: la respuesta del servidor se inserta con textContent, nunca con innerHTML.
+                //    Si el servidor devolviera "<img src=x onerror=...>", se mostraría como texto.
+                mostrar(respuestaUI, datos.mensaje, respuesta.ok ? 'exito' : 'error');
+                if (respuesta.ok) form.reset();
+            } catch (error) {
+                mostrar(respuestaUI, 'No pudimos conectar con el servidor. Intentá de nuevo en unos minutos.', 'error');
+            } finally {
+                // Se vuelve a habilitar el botón termine bien o mal la petición
+                btnEnviar.disabled = false;
+                btnEnviar.textContent = 'Suscribirme';
+                form.removeAttribute('aria-busy');
+            }
+        });
+
+        inputEmail.addEventListener('input', () => inputEmail.removeAttribute('aria-invalid'));
+
+        /** Escribe un mensaje en una región aria-live usando textContent. */
+        function mostrar(elemento, texto, tipo = '') {
+            elemento.textContent = texto;
+            elemento.className = `mensaje ${tipo}`.trim();
+        }
+
+        /* =========================================================
+           Servidor simulado
+           El ejercicio no tiene backend: se intercepta la llamada a fetch()
+           para devolver una respuesta real (objeto Response) después de 2 segundos.
+           Con un backend PHP alcanza con borrar este bloque y apuntar
+           URL_SUSCRIPCION a, por ejemplo, 'api/suscripcion.php'.
+           ========================================================= */
+        const URL_SUSCRIPCION = 'api/suscripcion';
+        const fetchOriginal = window.fetch.bind(window);
+
+        window.fetch = async (url, opciones) => {
+            if (url !== URL_SUSCRIPCION) return fetchOriginal(url, opciones);
+
+            await new Promise((resolver) => setTimeout(resolver, 2000));
+            const cuerpo = JSON.stringify({
+                estado: 'exito',
+                mensaje: '¡Suscripción confirmada con éxito en la base de datos!'
+            });
+            return new Response(cuerpo, { status: 201, headers: { 'Content-Type': 'application/json' } });
+        };
+    </script>
+</body>
+</html>

@@ -17,3 +17,4 @@ Actividades de **Paradigmas y Lenguajes de Programación III** — Ingeniería e
 | AA22 | Auditoría de seguridad: diagnóstico, remediación (PDO, BCRYPT, sesiones, htmlspecialchars) y `login.php` seguro | [`AA22-auditoria-seguridad/`](AA22-auditoria-seguridad/) |
 | AA23 | Proyecto del equipo: registro/login con BCRYPT, sesiones PHP, endpoint privado `mis_favoritos.php` (401) y frontend SPA con `textContent` | [`AA23-rn-inmobiliaria-login/`](AA23-rn-inmobiliaria-login/) |
 | AA25 | Votación de disfraces de Halloween: API REST en PHP/MySQL, registro y login con BCRYPT y sesiones, votos sin duplicados y panel admin con CRUD | [`AA25-halloween/`](AA25-halloween/) |
+| Accesibilidad | Auditoría de accesibilidad con Lighthouse y manual ("El engaño del 100%"), y refactorización del index.html con HTML semántico, foco visible, aria-live y textContent | [`Auditoria-accesibilidad/`](Auditoria-accesibilidad/) |
