@@ -2,14 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller de Auditoría de Accesibilidad - Cátedra PLP III</title>
-    <!--
-        ETAPA 1 · Refactorización Nivel 1
-        Se corrigen SOLO los 5 errores que marca Lighthouse (→ 100/100).
-        A propósito se mantienen las barreras manuales (#6, #7, #8 y #9)
-        para demostrar "El engaño del 100%" en la Etapa 2.
-    -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,18 +12,18 @@
             background-color: #ffffff;
         }
 
-        /* ❌ ERROR MANUAL #6 (se mantiene): Lighthouse no lo detecta */
+        /* ❌ ERROR MANUAL #6: Destruye el indicador de foco por teclado */
         *:focus {
             outline: none !important;
         }
 
-        /* ✅ CORREGIDO LIGHTHOUSE #1: #475569 sobre blanco = 7,6:1 (antes #94a3b8 = 2,6:1) */
+        /* ✅ CORREGIDO LIGHTHOUSE #1: contraste de 7,6:1 sobre blanco */
         .texto-bajo-contraste {
-            color: #475569;
+            color: #4b5563;
             font-size: 0.9rem;
         }
 
-        /* 🟠 ERROR MANUAL #7 (se mantiene) */
+        /* 🟠 ERROR MANUAL #7: Apariencia de botón sobre un <div> inaccesible */
         .btn-falso {
             background-color: #2563eb;
             color: white;
@@ -56,34 +49,33 @@
     </header>
 
     <main>
-        <!-- ✅ CORREGIDO LIGHTHOUSE #5: de <h1> se pasa a <h2> (sin saltar niveles) -->
+        <!-- ✅ CORREGIDO LIGHTHOUSE #5: de <h1> se pasa a <h2> -->
         <h2>Catálogo de Productos Destacados</h2>
 
         <section class="tarjeta">
             <!-- ✅ CORREGIDO LIGHTHOUSE #3: imagen con texto alternativo -->
             <img src="https://www.ucp.edu.ar/wp-content/themes/ucp23/lib/ucp/img/universidad-cuenca-plata.svg" width="100"
                  alt="Logo de la Universidad de la Cuenca del Plata">
-
+            
             <h3>Auriculares Inalámbricos</h3>
-
-            <!-- ✅ CORREGIDO LIGHTHOUSE #1: contraste suficiente -->
+            
+            <!-- ✅ CORREGIDO LIGHTHOUSE #1: texto con contraste suficiente -->
             <p class="texto-bajo-contraste">Stock disponible: 5 unidades en depósito central.</p>
 
-            <!-- 🟠 ERROR MANUAL #7 (se mantiene): div que no recibe foco ni responde a Enter -->
+            <!-- 🟠 ERROR MANUAL #7: Div interactivo que no recibe foco con Tab ni Enter -->
             <div class="btn-falso" onclick="alert('Producto agregado')">
                 Agregar al Carrito
             </div>
-
-            <!-- ✅ CORREGIDO LIGHTHOUSE #4: el botón de ícono tiene nombre accesible -->
-            <button type="button" style="margin-left: 10px; padding: 8px;" aria-label="Eliminar producto del carrito">
+            
+            <!-- ✅ CORREGIDO LIGHTHOUSE #4: botón con nombre accesible -->
+            <button type="button" style="margin-left: 10px; padding: 8px;" aria-label="Quitar del carrito">
                 <span style="font-size: 1.2rem;" aria-hidden="true">🗑️</span>
             </button>
         </section>
 
         <section class="tarjeta">
-            <!-- ✅ CORREGIDO LIGHTHOUSE #5: <h3> → <h2> para mantener la jerarquía -->
-            <h2>Suscripción a Novedades</h2>
-
+            <h3>Suscripción al Novedades</h3>
+            
             <form id="form-suscripcion">
                 <div style="margin-bottom: 10px;">
                     <!-- ✅ CORREGIDO LIGHTHOUSE #2: input con <label> asociado -->
@@ -91,11 +83,11 @@
                     <input type="email" id="email-user" placeholder="Ingrese su correo electrónico...">
                 </div>
 
-                <!-- 🟠 ERROR MANUAL #9 (se mantiene): no se deshabilita durante fetch() -->
+                <!-- 🟠 ERROR MANUAL #9: Botón de envío que no se deshabilita durante fetch() -->
                 <button type="submit" id="btn-enviar">Suscribirme</button>
             </form>
 
-            <!-- 🟠 ERROR MANUAL #8 (se mantiene): sin aria-live -->
+            <!-- 🟠 ERROR MANUAL #8: Modificación del DOM sin aria-live -->
             <div id="resultado-servidor" style="margin-top: 15px; font-weight: bold;"></div>
         </section>
     </main>
@@ -103,9 +95,9 @@
     <script>
         document.getElementById('form-suscripcion').addEventListener('submit', async (e) => {
             e.preventDefault();
-
+            
             const respuestaUI = document.getElementById('resultado-servidor');
-
+            
             // ❌ Faltan: btn.disabled = true y aria-live="polite"
             respuestaUI.textContent = "Conectando con el servidor...";
 

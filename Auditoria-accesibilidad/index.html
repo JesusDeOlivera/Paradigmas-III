@@ -4,232 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taller de Auditoría de Accesibilidad - Cátedra PLP III</title>
-    <!--
-        ETAPA 3 · Versión final accesible
-        Regla 1: HTML5 semántico (button, label for, header, main, section, footer)
-        Regla 2: foco visual preservado con :focus-visible (sin outline: none)
-        Regla 3: comunicación asíncrona accesible (aria-live + aria-atomic + botón deshabilitado)
-        Regla 4: respuestas del servidor inyectadas con textContent (nunca innerHTML)
-    -->
     <style>
-        :root {
-            --texto: #1e293b;
-            --texto-secundario: #475569;   /* 7,6:1 sobre blanco (antes #94a3b8 = 2,6:1) */
-            --primario: #1d4ed8;           /* 6,7:1 con texto blanco */
-            --primario-hover: #1e40af;
-            --borde: #cbd5e1;
-            --foco: #c2410c;               /* anillo de foco naranja oscuro: 4,6:1 sobre blanco */
-            --exito: #166534;
-            --error: #b91c1c;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 30px auto;
             padding: 20px;
             background-color: #ffffff;
-            color: var(--texto);
-            line-height: 1.5;
+            color: #1f2937;
         }
 
-        /* ✅ REGLA 2: se eliminó "*:focus { outline: none !important; }".
-           El anillo de foco aparece al navegar con teclado (:focus-visible)
-           y no molesta al hacer clic con el mouse. */
+        /* Regla 2: se borró "*:focus { outline: none !important; }"
+           y se marca el foco solo cuando se navega con el teclado */
         :focus-visible {
-            outline: 3px solid var(--foco);
+            outline: 3px solid #c2410c;
             outline-offset: 3px;
         }
 
-        /* Enlace para saltar directo al contenido (primer Tab de la página) */
-        .saltar-contenido {
-            position: absolute;
-            left: 20px;
-            top: -100px;
-            padding: 10px 16px;
-            background-color: var(--primario);
-            color: #ffffff;
-            font-weight: bold;
-            border-radius: 6px;
-            z-index: 10;
+        .texto-bajo-contraste {
+            color: #4b5563;
+            font-size: 0.9rem;
         }
 
-        .saltar-contenido:focus {
-            top: 12px;
+        .btn {
+            background-color: #2563eb;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
-        /* ✅ Contraste suficiente para el texto secundario */
-        .texto-secundario {
-            color: var(--texto-secundario);
-            font-size: 0.95rem;
+        .btn:disabled {
+            background-color: #6b7280;
+            cursor: not-allowed;
+        }
+
+        .btn-icono {
+            margin-left: 10px;
+            padding: 8px;
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 1px solid #9ca3af;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .tarjeta {
-            border: 1px solid var(--borde);
-            padding: 20px;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
 
-        .producto-acciones {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        /* ✅ REGLA 1: estilos para un <button> real (antes era un <div class="btn-falso">) */
-        .btn {
-            min-height: 44px;              /* objetivo táctil mínimo recomendado */
-            padding: 10px 16px;
-            border: 2px solid transparent;
-            border-radius: 6px;
-            font: inherit;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-primario {
-            background-color: var(--primario);
-            color: #ffffff;
-        }
-
-        .btn-primario:hover {
-            background-color: var(--primario-hover);
-        }
-
-        .btn-icono {
-            min-width: 44px;
-            background-color: #ffffff;
-            border-color: var(--borde);
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-
-        .btn-icono:hover {
-            border-color: var(--error);
-        }
-
-        /* Botón deshabilitado durante la petición fetch() */
-        .btn:disabled {
-            opacity: 0.65;
-            cursor: wait;
-        }
-
-        .campo {
-            margin-bottom: 12px;
-        }
-
-        .campo label {
+        label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-weight: bold;
         }
 
-        .campo input {
-            width: 100%;
-            max-width: 360px;
-            min-height: 44px;
-            padding: 10px;
-            border: 1px solid #64748b;    /* el borde del campo también contrasta (3:1 o más) */
-            border-radius: 6px;
-            font: inherit;
+        input[type="email"] {
+            padding: 8px;
+            width: 280px;
+            border: 1px solid #6b7280;
+            border-radius: 5px;
         }
 
-        .campo input[aria-invalid="true"] {
-            border: 2px solid var(--error);
-        }
-
-        .ayuda {
-            margin: 6px 0 0;
-            color: var(--texto-secundario);
-            font-size: 0.9rem;
-        }
-
-        /* Regiones de notificación (aria-live) */
         .mensaje {
-            min-height: 1.5em;
-            margin: 15px 0 0;
+            margin-top: 15px;
             font-weight: bold;
-        }
-
-        .mensaje.exito { color: var(--exito); }
-        .mensaje.error { color: var(--error); }
-
-        footer {
-            color: var(--texto-secundario);
-            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- Primer elemento al presionar Tab: permite saltar directo al contenido principal -->
-    <a href="#contenido" class="saltar-contenido">Saltar al contenido principal</a>
-
     <header>
         <h1>Portal de Compras - Ejercicio de Auditoría</h1>
     </header>
 
-    <main id="contenido" tabindex="-1">
+    <main>
+        <section>
+            <h2>Catálogo de Productos Destacados</h2>
 
-        <!-- ✅ Jerarquía de títulos sin saltos: h1 → h2 → h3 -->
-        <section aria-labelledby="titulo-catalogo">
-            <h2 id="titulo-catalogo">Catálogo de Productos Destacados</h2>
+            <article class="tarjeta">
+                <img src="https://www.ucp.edu.ar/wp-content/themes/ucp23/lib/ucp/img/universidad-cuenca-plata.svg" width="100"
+                     alt="Logo de la Universidad de la Cuenca del Plata">
 
-            <article class="tarjeta" aria-labelledby="titulo-producto">
-                <!-- ✅ Imagen con texto alternativo -->
-                <img src="https://www.ucp.edu.ar/wp-content/themes/ucp23/lib/ucp/img/universidad-cuenca-plata.svg"
-                     width="100" alt="Logo de la Universidad de la Cuenca del Plata">
+                <h3>Auriculares Inalámbricos</h3>
 
-                <h3 id="titulo-producto">Auriculares Inalámbricos</h3>
+                <p class="texto-bajo-contraste">Stock disponible: 5 unidades en depósito central.</p>
 
-                <!-- ✅ Texto con contraste suficiente -->
-                <p class="texto-secundario">Stock disponible: 5 unidades en depósito central.</p>
+                <!-- Regla 1: botón real en lugar del div -->
+                <button type="button" class="btn" id="btn-agregar">Agregar al Carrito</button>
 
-                <div class="producto-acciones">
-                    <!-- ✅ REGLA 1: <button> nativo → recibe foco con Tab y se activa con Enter o Espacio -->
-                    <button type="button" class="btn btn-primario" id="btn-agregar">
-                        Agregar al Carrito
-                    </button>
+                <button type="button" class="btn-icono" id="btn-quitar" aria-label="Quitar del carrito">
+                    <span aria-hidden="true">🗑️</span>
+                </button>
 
-                    <!-- ✅ Botón de ícono con nombre accesible; el emoji se oculta a los lectores de pantalla -->
-                    <button type="button" class="btn btn-icono" id="btn-quitar"
-                            aria-label="Quitar Auriculares Inalámbricos del carrito">
-                        <span aria-hidden="true">🗑️</span>
-                    </button>
-                </div>
-
-                <!-- ✅ REGLA 3: región que anuncia los cambios del carrito -->
-                <p id="estado-carrito" class="mensaje" role="status" aria-live="polite" aria-atomic="true"></p>
+                <!-- Mensajes del carrito, anunciados por el lector de pantalla -->
+                <p id="mensaje-carrito" class="mensaje" aria-live="polite" aria-atomic="true"></p>
             </article>
         </section>
 
-        <section class="tarjeta" aria-labelledby="titulo-suscripcion">
-            <h2 id="titulo-suscripcion">Suscripción a Novedades</h2>
+        <section class="tarjeta">
+            <h2>Suscripción a Novedades</h2>
 
-            <form id="form-suscripcion" novalidate>
-                <div class="campo">
-                    <!-- ✅ REGLA 1: <label for> asociado al input -->
+            <form id="form-suscripcion">
+                <div style="margin-bottom: 10px;">
                     <label for="email-user">Correo electrónico</label>
-                    <input type="email" id="email-user" name="email" autocomplete="email" required
-                           placeholder="nombre@ejemplo.com" aria-describedby="ayuda-email">
-                    <p id="ayuda-email" class="ayuda">Te enviaremos las novedades del catálogo una vez por semana.</p>
+                    <input type="email" id="email-user" placeholder="Ingrese su correo electrónico..." required>
                 </div>
 
-                <button type="submit" class="btn btn-primario" id="btn-enviar">Suscribirme</button>
+                <button type="submit" class="btn" id="btn-enviar">Suscribirme</button>
             </form>
 
-            <!-- ✅ REGLA 3: aria-live="polite" + aria-atomic="true" → el lector de pantalla
-                 lee el mensaje completo cada vez que cambia -->
-            <div id="resultado-servidor" class="mensaje" role="status" aria-live="polite" aria-atomic="true"></div>
+            <!-- Regla 3: región de notificaciones accesible -->
+            <div id="resultado-servidor" class="mensaje" aria-live="polite" aria-atomic="true"></div>
         </section>
     </main>
 
@@ -238,110 +130,52 @@
     </footer>
 
     <script>
-        /* =========================================================
-           Carrito: el <button> nativo dispara "click" con el mouse,
-           con Enter y con la barra espaciadora, sin código extra.
-           ========================================================= */
-        const btnAgregar    = document.querySelector('#btn-agregar');
-        const btnQuitar     = document.querySelector('#btn-quitar');
-        const estadoCarrito = document.querySelector('#estado-carrito');
-        let unidadesEnCarrito = 0;
-        const STOCK = 5;
+        // Carrito: al ser un <button> funciona con clic, Enter y barra espaciadora
+        const btnAgregar = document.getElementById('btn-agregar');
+        const btnQuitar = document.getElementById('btn-quitar');
+        const mensajeCarrito = document.getElementById('mensaje-carrito');
+        let cantidad = 0;
 
         btnAgregar.addEventListener('click', () => {
-            if (unidadesEnCarrito >= STOCK) {
-                mostrar(estadoCarrito, 'No hay más stock disponible de este producto.', 'error');
-                return;
-            }
-            unidadesEnCarrito++;
-            mostrar(estadoCarrito, `Producto agregado. Tenés ${unidadesEnCarrito} en el carrito.`, 'exito');
+            cantidad++;
+            mensajeCarrito.textContent = 'Producto agregado. Unidades en el carrito: ' + cantidad;
         });
 
         btnQuitar.addEventListener('click', () => {
-            if (unidadesEnCarrito === 0) {
-                mostrar(estadoCarrito, 'El carrito no tiene este producto.', 'error');
-                return;
+            if (cantidad > 0) {
+                cantidad--;
             }
-            unidadesEnCarrito--;
-            mostrar(estadoCarrito, `Producto quitado. Tenés ${unidadesEnCarrito} en el carrito.`, 'exito');
+            mensajeCarrito.textContent = 'Producto quitado. Unidades en el carrito: ' + cantidad;
         });
 
-        /* =========================================================
-           Suscripción con fetch()
-           ========================================================= */
-        const form        = document.querySelector('#form-suscripcion');
-        const inputEmail  = document.querySelector('#email-user');
-        const btnEnviar   = document.querySelector('#btn-enviar');
-        const respuestaUI = document.querySelector('#resultado-servidor');
+        // Suscripción
+        const formulario = document.getElementById('form-suscripcion');
+        const btnEnviar = document.getElementById('btn-enviar');
+        const respuestaUI = document.getElementById('resultado-servidor');
 
-        form.addEventListener('submit', async (e) => {
+        formulario.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Validación accesible: el error se marca en el campo y se anuncia en la región aria-live
-            if (!inputEmail.checkValidity()) {
-                inputEmail.setAttribute('aria-invalid', 'true');
-                mostrar(respuestaUI, 'Ingresá un correo electrónico válido, por ejemplo nombre@ejemplo.com.', 'error');
-                inputEmail.focus();
-                return;
-            }
-            inputEmail.removeAttribute('aria-invalid');
-
-            // ✅ REGLA 3: se deshabilita el botón mientras dura la petición (evita envíos duplicados)
+            // Regla 3: se deshabilita el botón mientras dura la petición
             btnEnviar.disabled = true;
-            btnEnviar.textContent = 'Enviando…';
-            form.setAttribute('aria-busy', 'true');
-            mostrar(respuestaUI, 'Conectando con el servidor…');
+            btnEnviar.textContent = 'Enviando...';
+
+            // Regla 4: siempre textContent, nunca innerHTML
+            respuestaUI.textContent = 'Conectando con el servidor...';
 
             try {
-                const respuesta = await fetch(URL_SUSCRIPCION, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: inputEmail.value.trim() })
-                });
-                const datos = await respuesta.json();
+                // Simulación de petición asíncrona fetch()
+                await new Promise(resolve => setTimeout(resolve, 2000));
 
-                // ✅ REGLA 4: la respuesta del servidor se inserta con textContent, nunca con innerHTML.
-                //    Si el servidor devolviera "<img src=x onerror=...>", se mostraría como texto.
-                mostrar(respuestaUI, datos.mensaje, respuesta.ok ? 'exito' : 'error');
-                if (respuesta.ok) form.reset();
+                respuestaUI.textContent = '¡Suscripción confirmada con éxito en la base de datos!';
             } catch (error) {
-                mostrar(respuestaUI, 'No pudimos conectar con el servidor. Intentá de nuevo en unos minutos.', 'error');
+                respuestaUI.textContent = 'No se pudo completar la suscripción. Intente nuevamente.';
             } finally {
-                // Se vuelve a habilitar el botón termine bien o mal la petición
+                // El botón se vuelve a habilitar haya salido bien o mal
                 btnEnviar.disabled = false;
                 btnEnviar.textContent = 'Suscribirme';
-                form.removeAttribute('aria-busy');
             }
         });
-
-        inputEmail.addEventListener('input', () => inputEmail.removeAttribute('aria-invalid'));
-
-        /** Escribe un mensaje en una región aria-live usando textContent. */
-        function mostrar(elemento, texto, tipo = '') {
-            elemento.textContent = texto;
-            elemento.className = `mensaje ${tipo}`.trim();
-        }
-
-        /* =========================================================
-           Servidor simulado
-           El ejercicio no tiene backend: se intercepta la llamada a fetch()
-           para devolver una respuesta real (objeto Response) después de 2 segundos.
-           Con un backend PHP alcanza con borrar este bloque y apuntar
-           URL_SUSCRIPCION a, por ejemplo, 'api/suscripcion.php'.
-           ========================================================= */
-        const URL_SUSCRIPCION = 'api/suscripcion';
-        const fetchOriginal = window.fetch.bind(window);
-
-        window.fetch = async (url, opciones) => {
-            if (url !== URL_SUSCRIPCION) return fetchOriginal(url, opciones);
-
-            await new Promise((resolver) => setTimeout(resolver, 2000));
-            const cuerpo = JSON.stringify({
-                estado: 'exito',
-                mensaje: '¡Suscripción confirmada con éxito en la base de datos!'
-            });
-            return new Response(cuerpo, { status: 201, headers: { 'Content-Type': 'application/json' } });
-        };
     </script>
 </body>
 </html>
