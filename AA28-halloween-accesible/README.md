@@ -38,10 +38,12 @@ Evolución del proyecto **Noche de Disfraces** (AA25): la aplicación de votaci�
 
 ### Problemas encontrados en la versión AA25
 
+La versión AA25 **ya daba 100/100 en Lighthouse** (ver [`docs/capturas/l-aa25.png`](docs/capturas/l-aa25.png)), pero al revisar el código y probar a mano aparecieron estos problemas, que la herramienta no detecta:
+
 | # | Problema | Cómo se detectó | Pauta WCAG 2.1 |
 |---|---|---|---|
-| 1 | `aria-label` sobre un `<span>` sin rol (puesto del ranking): Lighthouse lo marca como atributo ARIA prohibido | Auditoría automática | 4.1.2 Nombre, función, valor |
-| 2 | Filas de la papelera con `opacity: 0.55`: el texto quedaba con contraste de 2,3:1 y 3,3:1 | Auditoría automática | 1.4.3 Contraste (mínimo) |
+| 1 | `aria-label` sobre un `<span>` sin rol (puesto del ranking): ARIA no lo permite en elementos genéricos y varios lectores lo ignoran | Revisión del código | 4.1.2 Nombre, función, valor |
+| 2 | Filas de la papelera con `opacity: 0.55`: el texto quedaba con contraste de 2,3:1 y 3,3:1 (Lighthouse no lo ve porque borra la sesión al analizar) | Medición de contraste con un disfraz en la papelera | 1.4.3 Contraste (mínimo) |
 | 3 | Al votar o eliminar con el teclado, la lista se volvía a dibujar y **el foco saltaba al principio de la página** | Prueba manual con Tab | 2.4.3 Orden del foco |
 | 4 | No había forma de saltear el menú | Prueba manual con Tab | 2.4.1 Evitar bloques |
 | 5 | Seis botones iguales "🎃 Votar" (y seis "Editar"), sin decir de qué disfraz son; el lector también leía los emojis | Revisión del árbol de accesibilidad | 2.4.6 Encabezados y etiquetas |
@@ -53,7 +55,7 @@ Evolución del proyecto **Noche de Disfraces** (AA25): la aplicación de votaci�
 
 | Requisito de la consigna | Cambio | Archivo |
 |---|---|---|
-| **Lighthouse 100/100** (contraste, `label`, `alt`) | Puesto del ranking con texto oculto en lugar de `aria-label`; fila de la papelera sin `opacity`, distinguida con fondo y nombre tachado; color de la etiqueta "En papelera" a 6:1; `::placeholder` con contraste suficiente | `js/index.js`, `css/estilos.css` |
+| **Lighthouse 100/100** (se mantiene; contraste, `label`, `alt`) | Puesto del ranking con texto oculto en lugar de `aria-label`; fila de la papelera sin `opacity`, distinguida con fondo y nombre tachado; color de la etiqueta "En papelera" a 6:1; `::placeholder` con contraste suficiente | `js/index.js`, `css/estilos.css` |
 | **Navegación solo con teclado** | Enlace "Saltar al contenido principal" en las 4 páginas; todos los controles son `<button>` o `<a>` nativos (no hay `div` con `onclick`); **el foco vuelve al botón correspondiente** después de votar, editar, eliminar o restaurar; `scroll-padding-top` para que la cabecera fija no tape el foco | todos los `.html`, `js/index.js`, `js/admin.js` |
 | **Foco visible** | `:focus-visible` con contorno verde de 3 px (13:1 contra el fondo) y halo en los botones; no existe ningún `outline: none` | `css/estilos.css` |
 | **Nombres accesibles** | Los botones dicen "Votar por Calabaza gigante", "Editar Bruja del bosque", etc. (texto oculto); los emojis van con `aria-hidden="true"`; `aria-current="page"` en el menú | `js/index.js`, `js/admin.js`, `js/comun.js` |
@@ -112,7 +114,7 @@ Termina con `Resultado: 30 de 30 pruebas aprobadas`. Ver [`docs/resultado-prueba
    - Tab hasta "Ingresar" → Enter → `ana` / `calabaza123` → Enter;
    - Tab hasta un "Votar" → Enter. Mostrar que el foco se queda en el botón;
    - Espacio para quitar el voto.
-2. **Lighthouse (1 min):** F12 → Lighthouse → solo *Accessibility* → mostrar el 100/100.
+2. **Lighthouse (1 min):** F12 → Lighthouse → solo *Accessibility* → mostrar el 100/100. Para cerrar: "la versión anterior también daba 100, y aun así tenía los problemas que encontramos a mano".
 3. **Arquitectura (1 min):** la característica que más trabajo exigió fue **Usabilidad / Accesibilidad**. Al volver a dibujar la lista después de cada `fetch()`, el foco se perdía y saltaba al principio de la página. Se resolvió devolviendo el foco al botón correspondiente después de cada operación (ver [`CALIDAD-ISO25010.md`](CALIDAD-ISO25010.md)).
 
 ---
