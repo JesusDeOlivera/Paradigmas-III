@@ -703,6 +703,7 @@ h2 {
 }
 
 .tabla-contenedor {
+  position: relative;   /* contiene el texto oculto (.solo-lector) de los botones: si no, ensanchaba la página */
   overflow-x: auto;
 }
 
@@ -856,6 +857,13 @@ h2 {
 /* ---------------------------------------------------------
    Responsive y accesibilidad
    --------------------------------------------------------- */
+/* Sin esto, la tabla estiraba la columna de la grilla y en el celular la página
+   quedaba más ancha que la pantalla (WCAG 1.4.10 Reflow). Ahora la tabla se desplaza
+   dentro de su recuadro y la página no tiene scroll horizontal. */
+.admin-grilla > * {
+  min-width: 0;
+}
+
 @media (max-width: 860px) {
   .admin-grilla {
     grid-template-columns: 1fr;

@@ -47,6 +47,7 @@ Evolución del proyecto **Noche de Disfraces** (AA25): la aplicación de votaci�
 | 5 | Seis botones iguales "🎃 Votar" (y seis "Editar"), sin decir de qué disfraz son; el lector también leía los emojis | Revisión del árbol de accesibilidad | 2.4.6 Encabezados y etiquetas |
 | 6 | Los errores de formulario no marcaban el campo ni le devolvían el foco | Prueba manual | 3.3.1 Identificación de errores |
 | 7 | Un elemento con foco podía quedar tapado por la cabecera fija | Prueba manual con Tab | 2.4.7 Foco visible |
+| 8 | En el celular el panel admin era más ancho que la pantalla (scroll horizontal) | Vista móvil de Chrome | 1.4.10 Reflow |
 
 ### Correcciones aplicadas
 
@@ -57,6 +58,7 @@ Evolución del proyecto **Noche de Disfraces** (AA25): la aplicación de votaci�
 | **Foco visible** | `:focus-visible` con contorno verde de 3 px (13:1 contra el fondo) y halo en los botones; no existe ningún `outline: none` | `css/estilos.css` |
 | **Nombres accesibles** | Los botones dicen "Votar por Calabaza gigante", "Editar Bruja del bosque", etc. (texto oculto); los emojis van con `aria-hidden="true"`; `aria-current="page"` en el menú | `js/index.js`, `js/admin.js`, `js/comun.js` |
 | **Comunicación asíncrona accesible** | Cada resultado de `fetch()` se anuncia en una región `aria-live="polite"` + `aria-atomic="true"` (estado de carga, alertas de formularios, aviso flotante); el texto se inyecta siempre con `.textContent`; los botones se deshabilitan mientras esperan la respuesta | `js/comun.js`, todas las páginas |
+| **Vista en el celular** | `.admin-grilla > * { min-width: 0 }` y `position: relative` en el contenedor de la tabla: la tabla se desplaza dentro de su recuadro y la página no tiene scroll horizontal ni a 320 px | `css/estilos.css` |
 | **Errores accesibles** | El campo con error recibe `aria-invalid="true"` y el foco, y el mensaje se anuncia | `js/comun.js`, `js/acceso.js`, `js/index.js`, `js/admin.js` |
 
 ### Recorrido de prueba solo con teclado
