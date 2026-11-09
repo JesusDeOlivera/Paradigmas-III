@@ -18,3 +18,4 @@ Actividades de **Paradigmas y Lenguajes de Programación III** — Ingeniería e
 | AA23 | Proyecto del equipo: registro/login con BCRYPT, sesiones PHP, endpoint privado `mis_favoritos.php` (401) y frontend SPA con `textContent` | [`AA23-rn-inmobiliaria-login/`](AA23-rn-inmobiliaria-login/) |
 | AA25 | Votación de disfraces de Halloween: API REST en PHP/MySQL, registro y login con BCRYPT y sesiones, votos sin duplicados y panel admin con CRUD | [`AA25-halloween/`](AA25-halloween/) |
 | AA26 | Auditoría de accesibilidad con Lighthouse y manual ("El engaño del 100%"), y refactorización del index.html con HTML semántico, foco visible, aria-live y textContent | [`AA26-auditoria-accesibilidad/`](AA26-auditoria-accesibilidad/) |
+| AA28 | La web del terror accesible: proyecto Halloween refactorizado con WCAG 2.1 AA (teclado, foco, ARIA), 30 pruebas automáticas de la API y ficha de calidad ISO/IEC 25010 | [`AA28-halloween-accesible/`](AA28-halloween-accesible/) |

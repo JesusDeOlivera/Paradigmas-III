@@ -1,0 +1,46 @@
+
+Pruebas de la API — http://127.0.0.1:8093/
+
+1. Listado público (Adecuación funcional)
+  [OK]    GET api/disfraces.php responde 200 con JSON
+  [OK]    El listado trae disfraces desde MySQL
+  [OK]    El listado está ordenado por votos (ranking)
+  [OK]    Disfraz inexistente → 404
+  [OK]    Id no numérico → 400
+  [OK]    La foto se sirve desde el BLOB como imagen
+
+2. Seguridad (OWASP)
+  [OK]    Votar sin sesión → 401
+  [OK]    Inyección SQL en el login es rechazada → 401
+  [OK]    Contraseña incorrecta → 401 con mensaje genérico
+  [OK]    Petición sin cabecera anti-CSRF → 403
+
+3. Registro, login y votos
+  [OK]    Registro de 'test_6dbc45' → 201 e inicia sesión
+  [OK]    Registrar el mismo usuario otra vez → 409
+  [OK]    Registro con datos inválidos → 400
+  [OK]    Login con la contraseña correcta (password_verify) → 200
+  [OK]    La cookie de sesión es HttpOnly y SameSite
+  [OK]    Votar con sesión → 201
+  [OK]    El contador de votos sube en 1
+  [OK]    Voto duplicado → 409
+  [OK]    Quitar el voto → 200 y el contador vuelve al valor anterior
+  [OK]    Un usuario común no puede borrar disfraces → 403
+  [OK]    Subir un SVG con script es rechazado → 415
+  [OK]    Un usuario común no puede abrir admin.php → 403
+
+4. CRUD del administrador
+  [OK]    Login del administrador → 200
+  [OK]    Crear disfraz con foto → 201
+  [OK]    Editar disfraz (PUT) → 200
+  [OK]    Enviar a la papelera (borrado lógico) → 200
+  [OK]    El disfraz en la papelera ya no es visible para el público → 404
+  [OK]    Borrado definitivo → 200 (limpieza de la prueba)
+  [OK]    Método no soportado → 405
+
+5. Eficiencia de desempeño
+  GET api/disfraces.php × 20: promedio 0.6 ms · p95 0.7 ms · máximo 0.7 ms
+  [OK]    El listado responde en menos de 500 ms (p95)
+
+Resultado: 30 de 30 pruebas aprobadas
+
