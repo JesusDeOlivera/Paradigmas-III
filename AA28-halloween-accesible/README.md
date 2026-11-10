@@ -57,6 +57,7 @@ La versión AA25 **ya daba 100/100 en Lighthouse** (ver [`docs/capturas/l-aa25.p
 |---|---|---|
 | **Lighthouse 100/100** (se mantiene; contraste, `label`, `alt`) | Puesto del ranking con texto oculto en lugar de `aria-label`; fila de la papelera sin `opacity`, distinguida con fondo y nombre tachado; color de la etiqueta "En papelera" a 6:1; `::placeholder` con contraste suficiente | `js/index.js`, `css/estilos.css` |
 | **Navegación solo con teclado** | Enlace "Saltar al contenido principal" en las 4 páginas; todos los controles son `<button>` o `<a>` nativos (no hay `div` con `onclick`); **el foco vuelve al botón correspondiente** después de votar, editar, eliminar o restaurar; `scroll-padding-top` para que la cabecera fija no tape el foco | todos los `.html`, `js/index.js`, `js/admin.js` |
+| **Navegación con flechas** | Además de Tab: ↓ y → pasan al elemento siguiente, ↑ y ← al anterior; manteniendo apretada la flecha el foco sigue avanzando. En campos de texto ← y → mueven el cursor, y `textarea`/`select` conservan sus flechas | `js/comun.js` |
 | **Foco visible** | `:focus-visible` con contorno verde de 3 px (13:1 contra el fondo) y halo en los botones; no existe ningún `outline: none` | `css/estilos.css` |
 | **Nombres accesibles** | Los botones dicen "Votar por Calabaza gigante", "Editar Bruja del bosque", etc. (texto oculto); los emojis van con `aria-hidden="true"`; `aria-current="page"` en el menú | `js/index.js`, `js/admin.js`, `js/comun.js` |
 | **Comunicación asíncrona accesible** | Cada resultado de `fetch()` se anuncia en una región `aria-live="polite"` + `aria-atomic="true"` (estado de carga, alertas de formularios, aviso flotante); el texto se inyecta siempre con `.textContent`; los botones se deshabilitan mientras esperan la respuesta | `js/comun.js`, todas las páginas |
@@ -71,6 +72,7 @@ La versión AA25 **ya daba 100/100 en Lighthouse** (ver [`docs/capturas/l-aa25.p
 | Tab hasta "Ingresar" → Enter → escribir usuario → Tab → clave → Enter | Inicia sesión. Con clave incorrecta el error se anuncia y el foco vuelve al campo contraseña |
 | Tab hasta "Votar por Momia egipcia" → Enter | Se registra el voto, se anuncia "¡Voto registrado!" y **el foco queda en el mismo botón**, ahora "Votado" |
 | Barra espaciadora sobre ese botón | Quita el voto; el foco sigue en el botón |
+| Flechas ↓ / ↑ en cualquier página | El foco avanza o retrocede igual que con Tab / Shift+Tab |
 | Enviar "Subí tu disfraz" vacío | El error se anuncia y el foco va al primer campo incompleto |
 | Admin: "Editar" → Enter → cambiar el nombre → Enter | Se guarda y el foco vuelve al botón "Editar" de esa fila |
 | Admin: "Eliminar" → Enter → Enter en la confirmación | El foco pasa a "Restaurar" de la misma fila |

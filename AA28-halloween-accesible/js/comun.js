@@ -251,3 +251,77 @@ function setCargando(boton, cargando, textoCargando = 'Enviando…') {
   boton.disabled = cargando;
   boton.textContent = cargando ? textoCargando : boton.dataset.textoOriginal;
 }
+
+/* ---------------------------------------------------------
+   Navegación con las flechas del teclado
+   Además de Tab y Shift+Tab, las flechas mueven el foco:
+   ↓ y → pasan al elemento siguiente; ↑ y ← vuelven al anterior.
+   Si se mantiene apretada la flecha, el foco sigue avanzando.
+   En los campos de texto ← y → siguen moviendo el cursor, y en
+   textarea y select las flechas conservan su función normal.
+   --------------------------------------------------------- */
+const SELECTOR_ENFOCABLES = [
+  'a[href]', 'button', 'input:not([type="hidden"])', 'select', 'textarea', '[tabindex]',
+].join(',');
+
+function elementosEnfocables() {
+  return [...document.querySelectorAll(SELECTOR_ENFOCABLES)].filter((el) =>
+    !el.disabled &&
+    el.tabIndex >= 0 &&
+    !el.closest('[hidden], [aria-hidden="true"], [inert]') &&
+    el.getClientRects().length > 0          // descarta lo que está oculto con display: none
+  );
+}
+
+function moverFoco(direccion) {
+  const lista = elementosEnfocables();
+  if (lista.length === 0) return;
+
+  const actual = document.activeElement;
+  let indice = lista.indexOf(actual);
+
+  if (indice === -1) {
+    // El foco está en algo que no se recorre con Tab (el <body>, o el <main> después de "Saltar al contenido"):
+    // se busca el primer elemento que está después de él en la página.
+    const despues = lista.findIndex((el) =>
+      actual && actual !== document.body &&
+      (actual.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) &&
+      !actual.contains(el)
+    );
+    const dentro = lista.findIndex((el) => actual && actual !== document.body && actual.contains(el));
+    if (direccion > 0) {
+      indice = dentro !== -1 ? dentro : despues;
+      if (indice === -1) indice = 0;
+    } else {
+      indice = (despues === -1 ? lista.length : despues) - 1;
+      if (indice < 0) indice = lista.length - 1;
+    }
+    lista[indice].focus();
+    return;
+  }
+
+  const siguiente = (indice + direccion + lista.length) % lista.length; // al final vuelve al principio, como Tab
+  lista[siguiente].focus();
+}
+
+document.addEventListener('keydown', (evento) => {
+  const teclas = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+  const direccion = teclas[evento.key];
+  if (!direccion || evento.altKey || evento.ctrlKey || evento.metaKey || evento.shiftKey) return;
+
+  const el = document.activeElement;
+  const etiqueta = el ? el.tagName : '';
+  const tipo = (el && el.type) || '';
+
+  // textarea, select y contenido editable usan las flechas para lo suyo
+  if (etiqueta === 'TEXTAREA' || etiqueta === 'SELECT' || (el && el.isContentEditable)) return;
+
+  // en un campo de texto ← y → mueven el cursor; ↑ y ↓ sí cambian de campo
+  const esCampoDeTexto = etiqueta === 'INPUT' &&
+    !['button', 'submit', 'reset', 'checkbox', 'radio', 'file', 'image', 'range', 'color'].includes(tipo);
+  if (esCampoDeTexto && (evento.key === 'ArrowLeft' || evento.key === 'ArrowRight')) return;
+  if (etiqueta === 'INPUT' && (tipo === 'number' || tipo === 'range' || tipo === 'radio')) return;
+
+  evento.preventDefault();   // evita que la página se desplace en lugar de mover el foco
+  moverFoco(direccion);
+});
