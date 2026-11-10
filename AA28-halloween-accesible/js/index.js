@@ -100,7 +100,7 @@ function actualizarBoton(boton, votado) {
 
   // El emoji es decorativo; el texto oculto aclara de qué disfraz es cada botón.
   // Nombre accesible: "Votar por Calabaza gigante" / "Votado. Quitar voto de Calabaza gigante"
-  const icono = crear('span', '', votado ? '✓' : '🎃');
+  const icono = crear('span', '', votado ? '✓' : '🕯️');
   icono.setAttribute('aria-hidden', 'true');
   const extra = crear('span', 'solo-lector', votado
     ? `. Quitar voto de ${boton.dataset.nombre}`
