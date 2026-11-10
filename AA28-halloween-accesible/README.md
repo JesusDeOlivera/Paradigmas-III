@@ -5,6 +5,8 @@ Evolución del proyecto **Noche de Disfraces** (AA25): la aplicación de votaci�
 - **Frontend:** HTML, CSS y JavaScript Vanilla con `fetch`.
 - **Backend:** PHP con PDO, consultas preparadas, contraseñas con BCRYPT y sesiones.
 
+**Integrantes:** Roa, Santino · Calamari, Santino · De Olivera, Jesús
+
 **Entregables de la AA28:**
 - [`CALIDAD-ISO25010.md`](CALIDAD-ISO25010.md): Ficha de Autoevaluación de Calidad.
 - [`tests/test_api.php`](tests/test_api.php): 30 pruebas automáticas de la API.

@@ -2,7 +2,7 @@
 
 **Proyecto:** Noche de Disfraces (Desafío de Halloween)
 **Actividad:** AA28 — La web del terror accesible
-**Alumno:** De Olivera, Jesús
+**Integrantes:** Roa, Santino · Calamari, Santino · De Olivera, Jesús
 
 Cada característica se evaluó revisando el código y ejecutando las pruebas de `tests/test_api.php` (30 pruebas automáticas) y la prueba manual de teclado.
 
